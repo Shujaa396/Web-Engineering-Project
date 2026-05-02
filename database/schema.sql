@@ -1,0 +1,71 @@
+DROP DATABASE IF EXISTS blxck_clone;
+
+CREATE DATABASE blxck_clone;
+
+USE blxck_clone;
+
+CREATE TABLE IF NOT EXISTS users (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) UNIQUE NOT NULL,
+  phone VARCHAR(20),
+  address VARCHAR(255),
+  city VARCHAR(100),
+  postal VARCHAR(20),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS products (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  price INT NOT NULL,
+  quantity INT NOT NULL DEFAULT 0,
+  image TEXT NOT NULL,
+  description TEXT NOT NULL,
+  extra_images TEXT,
+  category VARCHAR(50) NOT NULL DEFAULT 'new-stock',
+  subtitle VARCHAR(255),
+  original_price INT NULL,
+  badge VARCHAR(50),
+  rating INT NOT NULL DEFAULT 5,
+  reviews_count INT NOT NULL DEFAULT 0,
+  is_out_of_stock TINYINT(1) NOT NULL DEFAULT 0,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS orders (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  customer_name VARCHAR(255) NOT NULL,
+  customer_email VARCHAR(255) NOT NULL,
+  customer_phone VARCHAR(20),
+  customer_address VARCHAR(255) NOT NULL,
+  customer_city VARCHAR(100),
+  customer_postal VARCHAR(20),
+  total_amount INT NOT NULL,
+  status VARCHAR(50) DEFAULT 'pending',
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE TABLE IF NOT EXISTS order_items (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  order_id INT NOT NULL,
+  product_id INT,
+  product_name VARCHAR(255) NOT NULL,
+  product_price INT NOT NULL,
+  quantity INT NOT NULL,
+  product_size VARCHAR(50),
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+  CONSTRAINT fk_order_items_order
+    FOREIGN KEY (order_id) REFERENCES orders(id)
+    ON DELETE CASCADE
+);
+
+CREATE TABLE IF NOT EXISTS contacts (
+  id INT AUTO_INCREMENT PRIMARY KEY,
+  name VARCHAR(255) NOT NULL,
+  email VARCHAR(255) NOT NULL,
+  subject VARCHAR(255),
+  message TEXT NOT NULL,
+  created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);

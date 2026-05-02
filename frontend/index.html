@@ -1,0 +1,863 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>BLACK X ORIGINAL - Fashion Store</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    html { scroll-behavior: smooth; }
+
+    :root {
+      --bg: #d6d6d6;
+      --white: #ffffff;
+      --black: #111111;
+      --grey: #888888;
+      --light-grey: #e8e7e3;
+      --accent: #c8102e;
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: var(--font-body);
+      color: var(--black);
+      font-size: 14px;
+    }
+
+    /* â”€â”€ TOP BAR â”€â”€ */
+    .topbar {
+      background: var(--black);
+      color: #fff;
+      text-align: center;
+      font-size: 11px;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      padding: 7px 0;
+    }
+
+    /* â”€â”€ NAVBAR â”€â”€ */
+    nav {
+      background: var(--white);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 40px;
+      border-bottom: 1px solid var(--light-grey);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    /* â”€â”€ DROPDOWN MENU â”€â”€ */
+    .dropdown-container { position: relative; }
+    .dropdown-btn {
+      background: #ffffff;
+      border: 2px solid #d8d5cf;
+      cursor: pointer;
+      padding: 10px 22px;
+      border-radius: 25px;
+      transition: all 0.3s ease;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-family: var(--font-body);
+      font-weight: 600;
+      font-size: 13px;
+      color: #333;
+      box-shadow: 0 2px 6px rgba(0,0,0,.06);
+    }
+    .dropdown-btn:hover {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+      box-shadow: 0 6px 16px rgba(200, 16, 46, 0.25);
+    }
+    .dropdown-arrow {
+      font-size: 14px;
+      transition: transform 0.3s ease;
+    }
+    .dropdown-btn.active .dropdown-arrow {
+      transform: rotate(180deg);
+    }
+    .dropdown-menu {
+      position: absolute;
+      top: 100%;
+      left: 0;
+      background: #ffffff;
+      border: 2px solid #d8d5cf;
+      border-radius: 12px;
+      margin-top: 8px;
+      min-width: 200px;
+      box-shadow: 0 8px 24px rgba(0,0,0,.12);
+      display: none;
+      flex-direction: column;
+      z-index: 100;
+      overflow: hidden;
+    }
+    .dropdown-menu.active {
+      display: flex;
+    }
+    .dropdown-item {
+      padding: 14px 20px;
+      text-decoration: none;
+      color: #333;
+      font-size: 13px;
+      font-weight: 500;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      transition: all 0.2s ease;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .dropdown-item:last-child {
+      border-bottom: none;
+    }
+    .dropdown-item:hover {
+      background: var(--accent);
+      color: #fff;
+      padding-left: 24px;
+    }
+    .nav-logo { font-family: var(--font-display); font-size: 26px; font-weight: 700; letter-spacing: -1px; text-decoration: none; color: var(--black); }
+    .nav-logo:hover { color: var(--accent); }
+    .nav-icons {
+      display: flex;
+      gap: 8px;
+      align-items: center;
+      padding: 0;
+    }
+
+    /* â”€â”€ HERO BANNER â”€â”€ */
+    .hero {
+      position: relative;
+      height: 520px;
+      overflow: hidden;
+      background: #1a1a1a;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .hero-bg {
+      position: absolute; inset: 0;
+      display: flex;
+    }
+    .hero-bg-left {
+      width: 50%;
+      background: url('https://images.unsplash.com/photo-1600861194942-f883de0dfe96?w=800&q=80') center/cover no-repeat;
+      filter: brightness(0.55);
+    }
+    .hero-bg-right {
+      width: 50%;
+      background: url('https://images.unsplash.com/photo-1542291026-7eec264c27ff?w=800&q=80') center/cover no-repeat;
+      filter: brightness(0.55);
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      color: #fff;
+    }
+    .hero-logo-text {
+      font-family: var(--font-display);
+      font-size: 80px;
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -2px;
+      color: transparent;
+      -webkit-text-stroke: 2px #fff;
+    }
+    .hero-tagline {
+      font-size: 13px;
+      letter-spacing: 4px;
+      text-transform: uppercase;
+      margin-top: 14px;
+      opacity: 0.8;
+    }
+    .hero-cta {
+      display: inline-block;
+      margin-top: 28px;
+      padding: 13px 36px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 12px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      text-decoration: none;
+      font-weight: 600;
+      transition: background .2s;
+    }
+    .hero-cta:hover { background: #a00d25; }
+
+    /* â”€â”€ SECTION TITLE â”€â”€ */
+    .section { padding: 60px 40px; }
+    .section-title {
+      text-align: center;
+      font-family: var(--font-display);
+      font-size: 22px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 36px;
+      position: relative;
+    }
+    .section-title::after {
+      content: '';
+      display: block;
+      width: 40px; height: 2px;
+      background: var(--accent);
+      margin: 10px auto 0;
+    }
+
+    /* â”€â”€ PRODUCT GRID â”€â”€ */
+    .product-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 22px;
+    }
+    .product-card {
+      background: var(--white);
+      cursor: pointer;
+      transition: transform .25s, box-shadow .25s;
+      position: relative;
+      overflow: hidden;
+    }
+    .product-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 40px rgba(0,0,0,.12);
+    }
+    .product-card:hover .product-overlay { opacity: 1; }
+    .product-img {
+      width: 100%;
+      aspect-ratio: 3/4;
+      object-fit: cover;
+      display: block;
+      background: var(--light-grey);
+    }
+    .product-overlay {
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      background: rgba(17,17,17,.85);
+      color: #fff;
+      text-align: center;
+      padding: 14px;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      opacity: 0;
+      transition: opacity .25s;
+    }
+    .product-info { padding: 14px; }
+    .product-name { font-weight: 500; font-size: 13px; margin-bottom: 4px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+    .product-sub  { font-size: 11px; color: var(--grey); margin-bottom: 8px; }
+    .product-price { font-weight: 700; font-size: 14px; }
+    .product-price .original { text-decoration: line-through; color: var(--grey); font-weight: 400; font-size: 12px; margin-left: 6px; }
+    .stars { color: #f5a623; font-size: 11px; margin-bottom: 4px; }
+
+    /* â”€â”€ SALE BADGE â”€â”€ */
+    .badge {
+      position: absolute; top: 10px; left: 10px;
+      background: var(--accent); color: #fff;
+      font-size: 10px; font-weight: 700;
+      letter-spacing: 1px; text-transform: uppercase;
+      padding: 3px 8px;
+    }
+    .badge-new { background: #111; }
+
+    /* â”€â”€ BANNER STRIP â”€â”€ */
+    .banner-strip {
+      background: var(--black);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 60px;
+      padding: 38px 40px;
+      margin: 0;
+    }
+    .banner-strip-item { text-align: center; }
+    .banner-strip-num { font-family: var(--font-display); font-size: 38px; font-weight: 700; }
+    .banner-strip-label { font-size: 11px; letter-spacing: 2px; text-transform: uppercase; opacity: .6; margin-top: 4px; }
+
+    /* â”€â”€ SHOP ONLINE GRID (3 col) â”€â”€ */
+    .promo-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+    .promo-card {
+      position: relative;
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      background: var(--light-grey);
+      cursor: pointer;
+    }
+    .promo-card img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .4s;
+    }
+    .promo-card:hover img { transform: scale(1.06); }
+    .promo-card-label {
+      position: absolute;
+      bottom: 16px; left: 16px;
+      background: #fff;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 7px 14px;
+    }
+
+    /* â”€â”€ REVIEWS â”€â”€ */
+    .reviews-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .review-card {
+      background: var(--white);
+      padding: 28px 24px;
+      border-top: 3px solid var(--accent);
+    }
+    .review-stars { color: #f5a623; font-size: 14px; margin-bottom: 12px; }
+    .review-text { font-size: 13px; line-height: 1.7; color: #444; margin-bottom: 16px; }
+    .review-author { font-weight: 600; font-size: 12px; letter-spacing: .5px; }
+    .review-date { font-size: 11px; color: var(--grey); }
+
+    /* â”€â”€ INSTAGRAM â”€â”€ */
+    .instagram-section { background: var(--white); padding: 60px 40px; }
+    .instagram-grid {
+      display: grid;
+      grid-template-columns: repeat(5, 1fr);
+      gap: 8px;
+      margin-top: 32px;
+    }
+    .insta-item {
+      aspect-ratio: 1/1;
+      overflow: hidden;
+      background: var(--light-grey);
+      cursor: pointer;
+    }
+    .insta-item img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform .35s;
+    }
+    .insta-item:hover img { transform: scale(1.08); }
+
+    .contact-cta-section {
+      background: var(--white);
+      padding: 0 40px 70px;
+      text-align: center;
+    }
+    .contact-cta-btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 210px;
+      min-height: 48px;
+      padding: 14px 34px;
+      background: var(--black);
+      color: #fff;
+      border-radius: 999px;
+      text-decoration: none;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 1.8px;
+      text-transform: uppercase;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .contact-cta-btn:hover {
+      background: var(--accent);
+      transform: translateY(-2px);
+    }
+
+    /* â”€â”€ FOOTER â”€â”€ */
+    footer {
+      background: #111;
+      color: #aaa;
+      padding: 50px 40px 24px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+    .footer-logo { font-family: var(--font-display); font-size: 28px; color: #fff; margin-bottom: 14px; }
+    .footer-desc { font-size: 13px; line-height: 1.8; }
+    .footer-col h4 { color: #fff; font-size: 12px; letter-spacing: 2px; text-transform: uppercase; margin-bottom: 16px; }
+    .footer-col ul { list-style: none; }
+    .footer-col ul li { margin-bottom: 9px; }
+    .footer-col ul li a { color: #888; text-decoration: none; font-size: 13px; transition: color .2s; }
+    .footer-col ul li a:hover { color: #fff; }
+    .footer-bottom { border-top: 1px solid #222; padding-top: 20px; display: flex; justify-content: space-between; font-size: 12px; }
+
+    /* â”€â”€ VIEW ALL BTN â”€â”€ */
+    .view-all-wrap { text-align: center; margin-top: 36px; }
+    .btn-view {
+      display: inline-block;
+      padding: 12px 40px;
+      border: 1.5px solid var(--black);
+      font-size: 11px;
+      letter-spacing: 2.5px;
+      text-transform: uppercase;
+      cursor: pointer;
+      background: transparent;
+      font-family: var(--font-body);
+      font-weight: 600;
+      transition: background .2s, color .2s;
+    }
+    .btn-view:hover { background: var(--black); color: #fff; }
+
+    /* â”€â”€ 2-COL PRODUCTS (shorts/bundle) â”€â”€ */
+    .product-grid-2 { grid-template-columns: repeat(2, 1fr); }
+    .product-grid-3 { grid-template-columns: repeat(3, 1fr); }
+
+    @media (max-width: 900px) {
+      .product-grid, .product-grid-3 { grid-template-columns: repeat(2, 1fr); }
+      .promo-grid { grid-template-columns: repeat(2, 1fr); }
+      .instagram-grid { grid-template-columns: repeat(3, 1fr); }
+      .footer-grid { grid-template-columns: 1fr 1fr; }
+    }
+
+    /* â”€â”€ MODAL STYLES â”€â”€ */
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,.5); z-index: 999; align-items: center; justify-content: center; }
+    .modal.active { display: flex; }
+    .modal-content { background: #fff; border-radius: 8px; padding: 30px; max-width: 500px; width: 90%; max-height: 80vh; overflow-y: auto; position: relative; }
+    .modal-close { position: absolute; top: 12px; right: 12px; font-size: 24px; cursor: pointer; }
+    .modal-title { font-family: var(--font-display); font-size: 24px; margin-bottom: 20px; text-align: center; }
+
+    /* â”€â”€ SEARCH MODAL â”€â”€ */
+    #search-modal .modal-content { max-width: 600px; }
+    .search-input { width: 100%; padding: 14px 16px; border: 1px solid var(--light-grey); border-radius: 6px; font-size: 14px; margin-bottom: 16px; }
+    .search-results { max-height: 300px; overflow-y: auto; }
+    .search-item { padding: 12px; border-bottom: 1px solid var(--light-grey); cursor: pointer; transition: background .2s; }
+    .search-item:hover { background: var(--bg); }
+
+    /* â”€â”€ CART MODAL â”€â”€ */
+    .cart-item { display: flex; justify-content: space-between; align-items: center; padding: 12px 0; border-bottom: 1px solid var(--light-grey); }
+    .cart-item-info { flex: 1; }
+    .cart-item-qty { display: flex; gap: 8px; align-items: center; }
+    .qty-btn { padding: 4px 8px; border: 1px solid var(--light-grey); background: #fff; cursor: pointer; border-radius: 3px; }
+    .cart-total { margin-top: 20px; padding-top: 16px; border-top: 2px solid var(--light-grey); font-weight: 600; text-align: right; }
+    .cart-empty { text-align: center; padding: 40px 20px; color: var(--grey); }
+
+    /* â”€â”€ PROFILE MODAL â”€â”€ */
+    .profile-section { margin-bottom: 24px; }
+    .profile-label { font-weight: 600; margin-bottom: 8px; color: var(--black); }
+    .profile-input { width: 100%; padding: 10px; border: 1px solid var(--light-grey); border-radius: 4px; font-size: 13px; }
+    .profile-btn { display: inline-block; padding: 10px 20px; background: var(--accent); color: #fff; border: none; border-radius: 4px; cursor: pointer; font-weight: 600; font-size: 12px; margin-top: 10px; }
+    .profile-btn:hover { background: #a00d25; }
+
+    .nav-btn-label { display: none; }
+    .nav-btn-icon {
+      font-size: 18px;
+      line-height: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .cart-badge {
+      position: absolute;
+      top: -6px;
+      right: -6px;
+      background: var(--accent);
+      color: #fff;
+      border-radius: 50%;
+      min-width: 18px;
+      height: 18px;
+      padding: 0 4px;
+      font-size: 10px;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 2px solid #fff;
+      box-shadow: 0 2px 6px rgba(200, 16, 46, 0.3);
+      display: none; /* Initially hidden */
+    }
+    nav {
+      display: grid;
+      grid-template-columns: 150px minmax(0, 1fr) 140px;
+      gap: 20px;
+      padding: 16px 34px;
+      border-bottom: 1px solid #d8d5cf;
+      background: var(--white);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      align-items: center;
+    }
+    .nav-logo { display: inline-flex; flex-direction: column; align-items: flex-start; line-height: 0.9; font-family: var(--font-body); text-decoration: none; color: var(--black); }
+    .nav-logo-main { font-size: 17px; letter-spacing: 8px; text-transform: uppercase; }
+    .nav-logo-sub { font-size: 6px; letter-spacing: 1.8px; text-transform: uppercase; margin-left: 26px; margin-top: 2px; }
+    .nav-menu { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px 24px; list-style: none; margin: 0; padding: 0 10px; }
+    .nav-menu a { text-decoration: none; color: var(--black); font-size: 12px; letter-spacing: .2px; white-space: nowrap; }
+    .nav-menu a:hover { color: var(--accent); }
+    .nav-menu a.active { text-decoration: underline; text-underline-offset: 3px; }
+    .nav-icons { display: flex; justify-content: flex-end; gap: 14px; align-items: center; }
+    .nav-btn { position: relative; background: transparent; border: none; width: auto; height: auto; padding: 0; cursor: pointer; color: var(--black); font-size: 22px; transition: color 0.2s; }
+    .nav-btn:hover { color: var(--accent); }
+    @media (max-width: 1100px) { 
+      nav { grid-template-columns: 1fr; justify-items: center; gap: 15px; } 
+      .nav-logo { align-items: center; } 
+      .nav-logo-sub { margin-left: 0; } 
+      .nav-icons { justify-content: center; } 
+    }
+
+    /* WhatsApp Floating Button */
+    .whatsapp-float {
+      position: fixed;
+      width: 60px;
+      height: 60px;
+      bottom: 30px;
+      right: 30px;
+      background-color: #25d366;
+      color: #fff;
+      border-radius: 50px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+      z-index: 1000;
+      text-decoration: none;
+      transition: transform 0.3s ease;
+    }
+    .whatsapp-float:hover {
+      transform: scale(1.1);
+      color: #fff;
+    }
+  </style>
+</head>
+<body>
+
+<!-- TOP BAR -->
+<div class="topbar">Free Delivery on Orders Above Rs. 1999 &nbsp;|&nbsp; Easy Returns &amp; Exchanges</div>
+
+<!-- NAV -->
+<nav>
+  <a href="index.html" class="nav-logo">
+    <span class="nav-logo-main">BLACK</span>
+    <span class="nav-logo-sub">ORIGINAL</span>
+  </a>
+  <ul class="nav-menu">
+    <li><a href="#" class="active">HOME</a></li>
+    <li><a href="#sale">One Day Sale</a></li>
+    <li><a href="#dryfit">Imported Dry Fit</a></li>
+    <li><a href="#activewear">Active Wear</a></li>
+    <li><a href="#tshirts">T-Shirts</a></li>
+    <li><a href="#dropshoulder">Drop Shoulder</a></li>
+    <li><a href="#tracksuit">Tracksuits</a></li>
+    <li><a href="#bundle">Bundle Packs</a></li>
+    <li><a href="#shorts">Premium Shorts</a></li>
+    <li><a href="#newstock">New Stock</a></li>
+  </ul>
+  <div class="nav-icons">
+    <button id="search-btn" class="nav-btn" title="Search">&#128269;</button>
+    <button id="profile-btn" class="nav-btn" title="Account">&#128100;</button>
+    <button id="cart-btn" class="nav-btn" title="Cart">&#128717;<span class="cart-badge" id="cart-count">0</span></button>
+    <button id="admin-btn" class="nav-btn" title="Admin">&#9881;</button>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg">
+    <div class="hero-bg-left"></div>
+    <div class="hero-bg-right"></div>
+  </div>
+  <div class="hero-content">
+    <div class="hero-logo-text">BLACK X ORIGINAL</div>
+    <p class="hero-tagline">Elevate Your Everyday</p>
+    <a href="#" class="hero-cta">Shop Now</a>
+  </div>
+</section>
+
+<!-- ONE DAY SALE -->
+<section class="section" id="sale">
+  <div class="section-title">One Day Sale</div>
+  <div class="product-grid" id="sale-grid"></div>
+  <div class="view-all-wrap"><button class="btn-view">View All</button></div>
+</section>
+
+<!-- IMPORTED DRY FIT -->
+<section class="section" id="dryfit" style="background:#fff;">
+  <div class="section-title">Imported Dry Fit</div>
+  <div class="product-grid" id="dryfit-grid"></div>
+  <div class="view-all-wrap"><button class="btn-view">View All</button></div>
+</section>
+
+<!-- ACTIVE WEAR -->
+<section class="section" id="activewear">
+  <div class="section-title">Active Wear</div>
+  <div class="product-grid" id="activewear-grid"></div>
+  <div class="view-all-wrap"><button class="btn-view">View All</button></div>
+</section>
+
+<!-- T-SHIRTS -->
+<section class="section" id="tshirts" style="background:#fff;">
+  <div class="section-title">T-Shirts</div>
+  <div class="product-grid" id="tshirts-grid"></div>
+  <div class="view-all-wrap"><button class="btn-view">View All</button></div>
+</section>
+
+<!-- DROP SHOULDER -->
+<section class="section" id="dropshoulder">
+  <div class="section-title">Drop Shoulder</div>
+  <div class="product-grid" id="dropshoulder-grid"></div>
+  <div class="view-all-wrap"><button class="btn-view">View All</button></div>
+</section>
+
+<!-- TRACKSUITS -->
+<section class="section" id="tracksuit" style="background:#fff;">
+  <div class="section-title">Tracksuits</div>
+  <div class="product-grid" id="tracksuit-grid"></div>
+  <div class="view-all-wrap"><button class="btn-view">View All</button></div>
+</section>
+
+<!-- BUNDLES -->
+<section class="section" id="bundle">
+  <div class="section-title">Bundle Packs</div>
+  <div class="product-grid" id="bundle-grid"></div>
+  <div class="view-all-wrap"><button class="btn-view">View All</button></div>
+</section>
+
+<!-- SHORTS -->
+<section class="section" id="shorts" style="background:#fff;">
+  <div class="section-title">Premium Shorts</div>
+  <div class="product-grid" id="shorts-grid"></div>
+  <div class="view-all-wrap"><button class="btn-view">View All</button></div>
+</section>
+
+<!-- BANNER STRIP -->
+<div class="banner-strip">
+  <div class="banner-strip-item">
+    <div class="banner-strip-num">10K+</div>
+    <div class="banner-strip-label">Happy Customers</div>
+  </div>
+  <div class="banner-strip-item">
+    <div class="banner-strip-num">500+</div>
+    <div class="banner-strip-label">Products</div>
+  </div>
+  <div class="banner-strip-item">
+    <div class="banner-strip-num">4.8&#9733;</div>
+    <div class="banner-strip-label">Average Rating</div>
+  </div>
+  <div class="banner-strip-item">
+    <div class="banner-strip-num">Free</div>
+    <div class="banner-strip-label">Easy Returns</div>
+  </div>
+</div>
+
+<!-- NEW STOCK -->
+<section class="section" id="newstock">
+  <div class="section-title">New Stock</div>
+  <div class="product-grid" id="new-stock-grid">
+    <!-- New products from database will load here -->
+  </div>
+  <div class="view-all-wrap"><button class="btn-view" onclick="loadMoreNewStock()">View All New Stock</button></div>
+</section>
+
+<!-- SAVE TIME SHOP ONLINE -->
+<section class="section">
+  <div class="section-title">Save Time. Shop Online.</div>
+  <div class="promo-grid" id="promo-grid">
+
+    <div class="promo-card">
+      <img src="https://images.unsplash.com/photo-1520975916090-3105956dac38?w=600&q=80">
+      <div class="promo-card-label">Men's Collection</div>
+    </div>
+
+    <div class="promo-card">
+      <img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=600&q=80">
+      <div class="promo-card-label">Women's Style</div>
+    </div>
+
+    <div class="promo-card">
+      <img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=600&q=80">
+      <div class="promo-card-label">New Arrivals</div>
+    </div>
+
+    <div class="promo-card">
+      <img src="https://images.unsplash.com/photo-1503342217505-b0a15ec3261c?w=600&q=80">
+      <div class="promo-card-label">Streetwear</div>
+    </div>
+
+    <div class="promo-card">
+      <img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=600&q=80">
+      <div class="promo-card-label">Sale Up To 50%</div>
+    </div>
+
+    <div class="promo-card">
+      <img src="https://images.unsplash.com/photo-1519741497674-611481863552?w=600&q=80">
+      <div class="promo-card-label">Accessories</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- REVIEWS -->
+<section class="section" style="background:#fff;">
+  <div class="section-title">What Our Customers Say</div>
+  <div class="reviews-grid" id="reviews-grid">
+
+    <div class="review-card">
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div class="review-text">Absolutely love the quality. The fabric feels premium and fits perfectly. Definitely ordering again!</div>
+      <div class="review-author">Ali Raza</div>
+      <div class="review-date">March 2025</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9733;</div>
+      <div class="review-text">Fast delivery and amazing customer service. The tracksuit exceeded my expectations.</div>
+      <div class="review-author">Hassan Khan</div>
+      <div class="review-date">April 2025</div>
+    </div>
+
+    <div class="review-card">
+      <div class="review-stars">&#9733;&#9733;&#9733;&#9733;&#9734;</div>
+      <div class="review-text">Good quality for the price. The drop shoulder tees are very trendy and comfortable.</div>
+      <div class="review-author">Usman Tariq</div>
+      <div class="review-date">May 2025</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- INSTAGRAM -->
+<section class="instagram-section">
+  <div class="section-title">@blackxoriginal</div>
+  <div class="instagram-grid" id="insta-grid">
+
+    <div class="insta-item"><img src="https://images.unsplash.com/photo-1521572163474-6864f9cf17ab?w=400&q=80"></div>
+    <div class="insta-item"><img src="https://images.unsplash.com/photo-1542272604-787c3835535d?w=400&q=80"></div>
+    <div class="insta-item"><img src="https://images.unsplash.com/photo-1586790170083-2f9ceadc732d?w=400&q=80"></div>
+    <div class="insta-item"><img src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?w=400&q=80"></div>
+    <div class="insta-item"><img src="https://images.unsplash.com/photo-1506629905607-0b5b8b5b2b5b?w=400&q=80"></div>
+    <div class="insta-item"><img src="https://images.unsplash.com/photo-1512436991641-6745cdb1723f?w=400&q=80"></div>
+    <div class="insta-item"><img src="https://images.unsplash.com/photo-1483985988355-763728e1935b?w=400&q=80"></div>
+    <div class="insta-item"><img src="https://images.unsplash.com/photo-1441986300917-64674bd600d8?w=400&q=80"></div>
+    <div class="insta-item"><img src="https://images.unsplash.com/photo-1523381210434-271e8be1f52b?w=400&q=80"></div>
+    <div class="insta-item"><img src="https://images.unsplash.com/photo-1593032465171-8c63a9cfebaa?w=400&q=80"></div>
+
+  </div>
+</section>
+
+<!-- CONTACT CTA -->
+<section class="contact-cta-section">
+  <a href="contact.html" class="contact-cta-btn">Contact Us</a>
+</section>
+
+<!-- SEARCH MODAL -->
+<div id="search-modal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeModal('search-modal')">&#10005;</span>
+    <div class="modal-title">Search Products</div>
+    <input type="text" id="search-input" class="search-input" placeholder="Search for products..." />
+    <div class="search-results" id="search-results"></div>
+  </div>
+</div>
+
+<!-- CART MODAL -->
+<div id="cart-modal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeModal('cart-modal')">&#10005;</span>
+    <div class="modal-title">Shopping Cart</div>
+    <div id="cart-items" class="search-results">
+      <div class="cart-empty">Your cart is empty</div>
+    </div>
+    <div class="cart-total" id="cart-summary"></div>
+    <button class="profile-btn" style="width: 100%; margin-top: 20px;" onclick="checkout()">Proceed to Checkout</button>
+  </div>
+</div>
+
+<!-- PROFILE MODAL -->
+<div id="profile-modal" class="modal">
+  <div class="modal-content">
+    <span class="modal-close" onclick="closeModal('profile-modal')">&#10005;</span>
+    <div class="modal-title">My Account</div>
+    <div class="profile-section">
+      <div class="profile-label">Full Name</div>
+      <input type="text" id="profile-name" class="profile-input" placeholder="Enter your name" />
+    </div>
+    <div class="profile-section">
+      <div class="profile-label">Email Address</div>
+      <input type="email" id="profile-email" class="profile-input" placeholder="Enter your email" />
+    </div>
+    <div class="profile-section">
+      <div class="profile-label">Phone Number</div>
+      <input type="tel" id="profile-phone" class="profile-input" placeholder="Enter your phone" />
+    </div>
+    <div class="profile-section">
+      <div class="profile-label">Address</div>
+      <input type="text" id="profile-address" class="profile-input" placeholder="Enter your address" />
+    </div>
+    <div class="profile-section">
+      <div class="profile-label">City</div>
+      <input type="text" id="profile-city" class="profile-input" placeholder="Enter city" />
+    </div>
+    <div class="profile-section">
+      <div class="profile-label">Postal Code</div>
+      <input type="text" id="profile-postal" class="profile-input" placeholder="Enter postal code" />
+    </div>
+    <button class="profile-btn" onclick="saveProfile()">Save Profile</button>
+    <button class="profile-btn" style="background: #666; margin-left: 10px;" onclick="logout()">Logout</button>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-grid">
+    <div>
+      <div class="footer-logo">BLACK X ORIGINAL</div>
+      <p class="footer-desc">Premium quality clothing crafted for the modern wardrobe. Style that speaks without saying a word.</p>
+    </div>
+    <div class="footer-col">
+      <h4>Shop</h4>
+      <ul>
+        <li><a href="#">Men's Clothing</a></li>
+        <li><a href="#">T-Shirts</a></li>
+        <li><a href="#">Tracksuits</a></li>
+        <li><a href="#">Drop Shoulder</a></li>
+        <li><a href="#">Shorts</a></li>
+        <li><a href="#">Bundles</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Help</h4>
+      <ul>
+        <li><a href="#">Size Guide</a></li>
+        <li><a href="#">FAQs</a></li>
+        <li><a href="#">Shipping Policy</a></li>
+        <li><a href="#">Return Policy</a></li>
+        <li><a href="#">Track Order</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>Contact</h4>
+      <ul>
+        <li><a href="#">Instagram</a></li>
+        <li><a href="#">Facebook</a></li>
+        <li><a href="#">WhatsApp</a></li>
+        <li><a href="contact.html">Email Us</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2025 BLACK X ORIGINAL. All rights reserved.</span>
+    <span>Made with &#9829; in Pakistan</span>
+  </div>
+</footer>
+
+<!-- WhatsApp Float -->
+<a href="https://wa.me/923001234567" class="whatsapp-float" target="_blank" title="Chat with us on WhatsApp">
+  <svg width="32" height="32" viewBox="0 0 24 24" fill="currentColor"><path d="M12.031 6.172c-3.181 0-5.767 2.586-5.768 5.766-.001 1.298.38 2.27 1.019 3.287l-.582 2.128 2.185-.573c.948.527 1.927.815 3.144.815 3.18 0 5.765-2.587 5.766-5.767 0-3.18-2.584-5.766-5.764-5.766zm3.392 8.221c-.142.403-.844.762-1.182.811-.337.049-.76.06-1.252-.101-.493-.162-1.112-.393-1.856-.962-.893-.687-1.465-1.57-1.741-1.954-.275-.383-.472-.751-.472-1.135 0-.383.197-.573.284-.666.087-.093.189-.115.253-.115.064 0 .127.001.182.003.058.002.135-.022.21-.206.075-.184.259-.629.317-.751.058-.122.097-.265.039-.383-.058-.122-.097-.206-.194-.326-.097-.121-.202-.27-.291-.362-.101-.104-.206-.217-.089-.398.117-.181.519-.594.743-.761.224-.167.31-.144.425-.022.115.121.5.649.544.744.045.093.075.202.015.326-.06.122-.09.202-.18.326-.09.122-.181.253-.075.45.105.197.465.761.99 1.23.525.469 1.111.761 1.28.811.168.049.27.042.36-.06.09-.101.385-.45.49-.604.105-.154.21-.127.34-.08.131.049.833.393.977.462.144.069.24.101.275.161.036.06.036.353-.105.756zM12.094 2c-5.468 0-9.911 4.442-9.917 9.912 0 1.758.339 3.475 1.01 5.051L2 22l5.176-1.348c1.52.826 3.226 1.261 4.964 1.263 5.465 0 9.91-4.439 9.915-9.909.002-5.47-4.442-9.913-9.911-9.913h-.05zm.05 18.099h-.003c-1.579 0-3.125-.425-4.512-1.229l-.324-.187-3.356.873.893-3.23-.207-.33c-.883-1.407-1.35-3.04-1.35-4.717.006-4.947 4.021-8.962 8.971-8.962h.043c4.947 0 8.961 4.015 8.962 8.962-.002 4.948-4.017 8.963-8.967 8.963z"/></svg>
+</a>
+
+<script src="js/app.js"></script>
+</body>
+</html>

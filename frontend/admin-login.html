@@ -1,0 +1,241 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Login – Black X Original</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f5f4f0;
+      --white: #ffffff;
+      --black: #111111;
+      --grey: #888888;
+      --light-grey: #e8e7e3;
+      --accent: #c8102e;
+      --font-display: 'Playfair Display', serif;
+      --font-body: 'DM Sans', sans-serif;
+    }
+
+    body {
+      background: var(--bg);
+      font-family: var(--font-body);
+      color: var(--black);
+      font-size: 14px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+    }
+
+    .login-container {
+      background: var(--white);
+      padding: 50px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.1);
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .login-logo {
+      font-family: var(--font-display);
+      font-size: 32px;
+      text-align: center;
+      margin-bottom: 10px;
+      color: var(--black);
+    }
+
+    .login-subtitle {
+      text-align: center;
+      color: var(--grey);
+      margin-bottom: 32px;
+      font-size: 13px;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      display: block;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+      margin-bottom: 8px;
+      color: var(--black);
+    }
+
+    .form-input {
+      width: 100%;
+      padding: 12px 14px;
+      border: 1px solid var(--light-grey);
+      border-radius: 6px;
+      font-family: var(--font-body);
+      font-size: 14px;
+      transition: border .2s;
+    }
+
+    .form-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    .login-btn {
+      width: 100%;
+      padding: 14px;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background .2s;
+      margin-top: 10px;
+    }
+
+    .login-btn:hover {
+      background: #a00d25;
+    }
+
+    .login-btn:active {
+      transform: scale(0.98);
+    }
+
+    .error-message {
+      padding: 12px 14px;
+      background: #ffebee;
+      color: #c62828;
+      border-radius: 6px;
+      margin-bottom: 20px;
+      font-size: 12px;
+      display: none;
+    }
+
+    .error-message.show {
+      display: block;
+    }
+
+    .back-link {
+      text-align: center;
+      margin-top: 20px;
+    }
+
+    .back-link a {
+      color: var(--accent);
+      text-decoration: none;
+      font-size: 12px;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+
+    .back-link a:hover {
+      text-decoration: underline;
+    }
+
+    .demo-credentials {
+      background: var(--bg);
+      padding: 16px;
+      border-radius: 6px;
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--grey);
+    }
+
+    .demo-credentials strong {
+      color: var(--black);
+    }
+  </style>
+</head>
+<body>
+
+<div class="login-container">
+  <div class="login-logo">Black X Original</div>
+  <div class="login-subtitle">Admin Dashboard</div>
+
+  <div id="error-message" class="error-message"></div>
+
+  <form id="login-form" onsubmit="handleLogin(event)">
+    <div class="form-group">
+      <label class="form-label">Username</label>
+      <input type="text" id="username" class="form-input" placeholder="Enter username" required autofocus />
+    </div>
+
+    <div class="form-group">
+      <label class="form-label">Password</label>
+      <input type="password" id="password" class="form-input" placeholder="Enter password" required />
+    </div>
+
+    <button type="submit" class="login-btn">Login</button>
+  </form>
+
+  <div class="demo-credentials">
+    <strong>Demo Credentials:</strong><br>
+    Username: <strong>admin</strong><br>
+    Password: <strong>admin123</strong>
+  </div>
+
+  <div class="back-link">
+    <a href="index.html">← Back to Store</a>
+  </div>
+</div>
+
+<script>
+  const API_BASE = 'http://localhost:3000';
+
+  async function handleLogin(event) {
+    event.preventDefault();
+
+    const username = document.getElementById('username').value.trim();
+    const password = document.getElementById('password').value.trim();
+    const errorDiv = document.getElementById('error-message');
+
+    if (!username || !password) {
+      showError('Please enter username and password');
+      return;
+    }
+
+    try {
+      const response = await fetch(`${API_BASE}/users/auth/login`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ username, password })
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        showError(result.error || 'Invalid credentials');
+        return;
+      }
+
+      // Save auth token
+      localStorage.setItem('adminToken', result.token);
+      localStorage.setItem('adminUsername', result.username);
+
+      // Redirect to admin panel
+      window.location.href = 'admin.html';
+    } catch (error) {
+      console.error('Login error:', error);
+      showError('Connection error. Please try again.');
+    }
+  }
+
+  function showError(msg) {
+    const errorDiv = document.getElementById('error-message');
+    errorDiv.textContent = msg;
+    errorDiv.classList.add('show');
+    setTimeout(() => {
+      errorDiv.classList.remove('show');
+    }, 3000);
+  }
+</script>
+
+</body>
+</html>
