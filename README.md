@@ -37,9 +37,7 @@ Black X Original is a high-performance, full-stack e-commerce platform designed 
 
 Watch the full project walkthrough here:
 
-<video src="./Clips/Recording%202026-05-02%20211942.mp4" controls width="720"></video>
-
-[Open project demo video](https://drive.google.com/file/d/1DfepDi1bSH_YVF0g0d647YaFmjmi-wAN/view?usp=sharing)
+[![Watch Demo](https://img.youtube.com/vi/xv5Rbd1A-LM/0.jpg)](https://youtu.be/xv5Rbd1A-LM)
 
 ---
 
