@@ -39,7 +39,7 @@ Watch the full project walkthrough here:
 
 <video src="./Clips/Recording%202026-05-02%20211942.mp4" controls width="720"></video>
 
-[Open project demo video](./Clips/Recording%202026-05-02%20211942.mp4)
+[Open project demo video](https://drive.google.com/file/d/1DfepDi1bSH_YVF0g0d647YaFmjmi-wAN/view?usp=sharing)
 
 ---
 
