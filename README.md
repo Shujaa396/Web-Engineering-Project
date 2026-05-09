@@ -507,4 +507,4 @@ Make sure at least one order has been placed successfully and saved in MySQL.
 
 ## License
 
-This project is for learning/demo purposes.
+This project is Created by Syed Shujaa Hussain.
